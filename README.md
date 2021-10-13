@@ -1,3 +1,11 @@
+Author: Emmanuel Sanchez (sanchez.emmanuelm@gmail.com)
+
+Note: to access the music page, run the code in your favorite terminal with 
+
+```npm run dev```
+
+then in your favorite browser type http://localhost:3000/music
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
