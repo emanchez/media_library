@@ -6,6 +6,10 @@ Note: to access the music page, run the code in your favorite terminal with
 
 then in your favorite browser type http://localhost:3000/music
 
+files of interest: ```pages/music.tsx``` ```components/musicStyle.js``` ```data/*```
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
