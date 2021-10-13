@@ -39,7 +39,7 @@ const Music: NextPage = () => {
                 {value.name.toUpperCase()}
               </CataLabel>
               <SubCatagoryWrap id={value.name + "-sub"}>
-                {value.subcatagories.map((subCat) => {
+                {value.subcatagories.map((subCat: string) => {
                   return (
                     <SubCatagory key={subCat}>
                       <CataLabel id={subCat + "-label"} inner="inner">
@@ -47,8 +47,9 @@ const Music: NextPage = () => {
                       </CataLabel>
                       <MusicWrap id={subCat + "-songs"}>
                         {musicCollection
-                          .reduce((result, val) => {
+                          .reduce((result, val: iSong) => {
                             if (
+                              // if song matches catagory and sub catagory of the current div, then render it
                               val.category === value.name &&
                               val.subcat == subCat
                             ) {
@@ -57,23 +58,28 @@ const Music: NextPage = () => {
                             return result;
                           }, [] as iSong[]) // array of song metadata
                           .map((songObj) => {
+                            // render song div
+
+                            // init ID names for javascript methods
                             var playID = "play-" + songObj.link;
                             var stopID = "stop-" + songObj.link;
                             var vidID = songObj.link + "-player";
 
                             function handleClick(event: string) {
+                              // play/stop method using vanilla javascript
                               console.log("event fired: " + event);
                               if (event === "play") {
                                 document.getElementById(vidID).src +=
-                                  "?autoplay=1"!;
+                                  "?autoplay=1"!; // error message here but i cant prevent it (even with try/catch block)
                               }
                               if (event === "stop") {
                                 document.getElementById(vidID).src =
                                   "https://www.youtube.com/embed/" +
-                                  songObj.link!;
+                                  songObj.link!; // error message here but i cant prevent it (even with try/catch block)
                               }
                             }
                             return (
+                              // RENDER
                               //<Link href={songObj.link}>{songObj.title}</Link>
                               <Song key={songObj.link}>
                                 <CataLabel mini id={songObj.link + "-label"}>
@@ -129,3 +135,11 @@ const Music: NextPage = () => {
 };
 
 export default Music;
+
+///TODO:
+//RENDER ONE IFRAME THAT CHANGES SRC ATTRIBUTE WHEN SONG ONCLICK EVENT FIRES
+//GET A JOB
+//MOVE JSON DATA TO DATABASE
+//WRITE SERVER API FOR SAID DATABASE
+//CREATE FUNCTION TO ADD CATAGORY/SUBCATAGORY/SONGS
+//SWAP OUT YOUTUBE LINKS FOR LOCALLY STORED VIDEO/AUDIO FILES
