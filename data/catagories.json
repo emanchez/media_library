@@ -1,0 +1,23 @@
+[
+  {
+    "name": "ambience",
+    "subcatagories": ["general", "indoor"]
+  },
+  {
+    "name": "thematic",
+    "subcatagories": ["epic", "lawless", "ritual", "victory"]
+  },
+  {
+    "name": "action",
+    "subcatagories": [
+      "general",
+      "normal encounter",
+      "group encounter",
+      "boss encounter"
+    ]
+  },
+  {
+    "name": "mood",
+    "subcatagories": ["joyful", "sad", "somber"]
+  }
+]
