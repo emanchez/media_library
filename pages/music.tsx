@@ -29,11 +29,13 @@ interface iSong {
 
 const Music: NextPage = () => {
   return (
+    //RENDER
     <>
       <Collection>
         {catagories.map((value: iCatagory) => {
           // array of catagories
           return (
+            // RENDER
             <Catagory key={value.name}>
               <CataLabel id={value.name + "-label"}>
                 {value.name.toUpperCase()}
@@ -41,6 +43,7 @@ const Music: NextPage = () => {
               <SubCatagoryWrap id={value.name + "-sub"}>
                 {value.subcatagories.map((subCat: string) => {
                   return (
+                    // RENDER
                     <SubCatagory key={subCat}>
                       <CataLabel id={subCat + "-label"} inner="inner">
                         {subCat.toUpperCase()}
@@ -80,7 +83,6 @@ const Music: NextPage = () => {
                             }
                             return (
                               // RENDER
-                              //<Link href={songObj.link}>{songObj.title}</Link>
                               <Song key={songObj.link}>
                                 <CataLabel mini id={songObj.link + "-label"}>
                                   {songObj.title}
@@ -112,6 +114,7 @@ const Music: NextPage = () => {
                                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 ></iframe>
                               </Song>
+                              // END RENDER
                             );
                           })}
 
@@ -119,18 +122,21 @@ const Music: NextPage = () => {
                         <AddButton>ADD SONG</AddButton>
                       </MusicWrap>
                     </SubCatagory>
+                    // END RENDER
                   );
                 })}
                 <br />
                 <AddButton>ADD SUB CATAGORY</AddButton>
               </SubCatagoryWrap>
             </Catagory>
+            //END RENDER
           );
         })}
         <br />
         <AddButton>ADD CATAGORY</AddButton>
       </Collection>
     </>
+    //END RENDER
   );
 };
 
@@ -138,8 +144,8 @@ export default Music;
 
 ///TODO:
 //RENDER ONE IFRAME THAT CHANGES SRC ATTRIBUTE WHEN SONG ONCLICK EVENT FIRES
-//GET A JOB
 //MOVE JSON DATA TO DATABASE
 //WRITE SERVER API FOR SAID DATABASE
 //CREATE FUNCTION TO ADD CATAGORY/SUBCATAGORY/SONGS
 //SWAP OUT YOUTUBE LINKS FOR LOCALLY STORED VIDEO/AUDIO FILES
+//OFFLOAD MOST STYLED DIVS TO SPEREATE LAYOUT MODULES AKA CLEAN THIS DAMN FILE UP
