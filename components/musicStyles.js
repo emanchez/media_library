@@ -3,8 +3,21 @@ import styled from "styled-components";
 const darkMain = "#333353";
 const lightComplement = "LightCyan";
 
-export const Collection = styled.div`
+export const Container = styled.div``;
+
+export const VidContainer = styled.div`
+  height: 25vh;
   width: 100%;
+  background-color: ${lightComplement};
+  iframe {
+    display: none;
+  }
+`;
+
+export const Collection = styled.div`
+  height: 75vh;
+  width: 100%;
+  overflow: scroll;
 `;
 export const Catagory = styled.div`
   padding: 2em;

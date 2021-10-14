@@ -76,12 +76,6 @@
 
   {
     "category": "action",
-    "subcat": "general",
-    "title": "Kirby DL3 - Ripple Field 3",
-    "link": "MnFdDNYnoNA"
-  },
-  {
-    "category": "action",
     "subcat": "boss encounter",
     "title": "SMW - The Evil King Bowser",
     "link": "JY20CWBNljQ"
@@ -127,5 +121,11 @@
     "subcat": "group encounter",
     "title": "Paper Mario - Koopa Bro's",
     "link": "gNZq_0kvtxk"
+  },
+  {
+    "category": "mood",
+    "subcat": "joyful",
+    "title": "Kirby DL3 - Ripple Field 3",
+    "link": "MnFdDNYnoNA"
   }
 ]

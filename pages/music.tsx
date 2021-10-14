@@ -5,6 +5,8 @@ import Link from "next/link";
 import * as catagories from "../data/catagories.json";
 import * as musicCollection from "../data/music.json";
 import {
+  Container,
+  VidContainer,
   Collection,
   Catagory,
   CataLabel,
@@ -27,114 +29,134 @@ interface iSong {
   link: string;
 }
 
+const vidPlayerID = "vid_player";
+const titleID = "player_title";
+
 const Music: NextPage = () => {
   return (
     //RENDER
     <>
-      <Collection>
-        {catagories.map((value: iCatagory) => {
-          // array of catagories
-          return (
-            // RENDER
-            <Catagory key={value.name}>
-              <CataLabel id={value.name + "-label"}>
-                {value.name.toUpperCase()}
-              </CataLabel>
-              <SubCatagoryWrap id={value.name + "-sub"}>
-                {value.subcatagories.map((subCat: string) => {
-                  return (
-                    // RENDER
-                    <SubCatagory key={subCat}>
-                      <CataLabel id={subCat + "-label"} inner="inner">
-                        {subCat.toUpperCase()}
-                      </CataLabel>
-                      <MusicWrap id={subCat + "-songs"}>
-                        {musicCollection
-                          .reduce((result, val: iSong) => {
-                            if (
-                              // if song matches catagory and sub catagory of the current div, then render it
-                              val.category === value.name &&
-                              val.subcat == subCat
-                            ) {
-                              result.push(val);
-                            }
-                            return result;
-                          }, [] as iSong[]) // array of song metadata
-                          .map((songObj) => {
-                            // render song div
-
-                            // init ID names for javascript methods
-                            var playID = "play-" + songObj.link;
-                            var stopID = "stop-" + songObj.link;
-                            var vidID = songObj.link + "-player";
-
-                            function handleClick(event: string) {
-                              // play/stop method using vanilla javascript
-                              console.log("event fired: " + event);
-                              if (event === "play") {
-                                document.getElementById(vidID).src +=
-                                  "?autoplay=1"!; // error message here but i cant prevent it (even with try/catch block)
+      <Container>
+        <VidContainer>
+          <label id={titleID}>Not playing anything..</label>
+          <iframe
+            id={vidPlayerID}
+            src=""
+            frameBorder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          ></iframe>
+        </VidContainer>
+        <Collection>
+          {catagories.map((value: iCatagory) => {
+            // array of catagories
+            return (
+              // RENDER
+              <Catagory key={value.name}>
+                <CataLabel id={value.name + "-label"}>
+                  {value.name.toUpperCase()}
+                </CataLabel>
+                <SubCatagoryWrap id={value.name + "-sub"}>
+                  {value.subcatagories.map((subCat: string) => {
+                    return (
+                      // RENDER
+                      <SubCatagory key={subCat}>
+                        <CataLabel id={subCat + "-label"} inner="inner">
+                          {subCat.toUpperCase()}
+                        </CataLabel>
+                        <MusicWrap id={subCat + "-songs"}>
+                          {musicCollection
+                            .reduce((result, val: iSong) => {
+                              if (
+                                // if song matches catagory and sub catagory of the current div, then render it
+                                val.category === value.name &&
+                                val.subcat == subCat
+                              ) {
+                                result.push(val);
                               }
-                              if (event === "stop") {
-                                document.getElementById(vidID).src =
-                                  "https://www.youtube.com/embed/" +
-                                  songObj.link!; // error message here but i cant prevent it (even with try/catch block)
-                              }
-                            }
-                            return (
-                              // RENDER
-                              <Song key={songObj.link}>
-                                <CataLabel mini id={songObj.link + "-label"}>
-                                  {songObj.title}
-                                </CataLabel>
-                                <div>
-                                  <AddButton
-                                    id={playID}
-                                    onClick={() => handleClick("play")}
-                                  >
-                                    PLAY
-                                  </AddButton>
-                                  <AddButton
-                                    id={stopID}
-                                    onClick={() => handleClick("stop")}
-                                  >
-                                    STOP
-                                  </AddButton>
-                                </div>
+                              return result;
+                            }, [] as iSong[]) // array of song metadata
+                            .map((songObj) => {
+                              // render song div
 
-                                <iframe
-                                  id={vidID}
-                                  width="560"
-                                  height="480"
-                                  src={
+                              // init ID names for javascript methods
+                              var playID = "play-" + songObj.link;
+                              var stopID = "stop-" + songObj.link;
+                              var vidID = songObj.link + "-player";
+
+                              function handleClick(event: string) {
+                                // play/stop method using vanilla javascript
+                                console.log("event fired: " + event);
+                                if (event === "play") {
+                                  document.getElementById(vidPlayerID).src =
                                     "https://www.youtube.com/embed/" +
-                                    songObj.link
-                                  }
-                                  frameBorder="0"
-                                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                ></iframe>
-                              </Song>
-                              // END RENDER
-                            );
-                          })}
+                                    songObj.link +
+                                    "?autoplay=1"!; // error message here but i cant prevent it (even with try/catch block)
+                                  document.getElementById(titleID).innerHTML =
+                                    "Playing: " + songObj.title;
+                                }
+                                if (event === "stop") {
+                                  document.getElementById(vidPlayerID).src =
+                                    "https://www.youtube.com/embed/" +
+                                    songObj.link!; // error message here but i cant prevent it (even with try/catch block)
+                                  document.getElementById(titleID).innerHTML =
+                                    "Playing: Nothing";
+                                }
+                              }
+                              return (
+                                // RENDER
+                                <Song key={songObj.link}>
+                                  <CataLabel mini id={songObj.link + "-label"}>
+                                    {songObj.title}
+                                  </CataLabel>
+                                  <div>
+                                    <AddButton
+                                      id={playID}
+                                      onClick={() => handleClick("play")}
+                                    >
+                                      PLAY
+                                    </AddButton>
+                                    <AddButton
+                                      id={stopID}
+                                      onClick={() => handleClick("stop")}
+                                    >
+                                      STOP
+                                    </AddButton>
+                                  </div>
 
-                        <br />
-                        <AddButton>ADD SONG</AddButton>
-                      </MusicWrap>
-                    </SubCatagory>
-                    // END RENDER
-                  );
-                })}
-                <br />
-                <AddButton>ADD SUB CATAGORY</AddButton>
-              </SubCatagoryWrap>
-            </Catagory>
-            //END RENDER
-          );
-        })}
-        <br />
-        <AddButton>ADD CATAGORY</AddButton>
-      </Collection>
+                                  {/* <iframe
+                                    id={vidID}
+                                    width="560"
+                                    height="480"
+                                    src={
+                                      "https://www.youtube.com/embed/" +
+                                      songObj.link
+                                    }
+                                    frameBorder="0"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  ></iframe> */}
+                                </Song>
+                                // END RENDER
+                              );
+                            })}
+
+                          <br />
+                          <AddButton>ADD SONG</AddButton>
+                        </MusicWrap>
+                      </SubCatagory>
+                      // END RENDER
+                    );
+                  })}
+                  <br />
+                  <AddButton>ADD SUB CATAGORY</AddButton>
+                </SubCatagoryWrap>
+              </Catagory>
+              //END RENDER
+            );
+          })}
+          <br />
+          <AddButton>ADD CATAGORY</AddButton>
+        </Collection>
+      </Container>
     </>
     //END RENDER
   );
